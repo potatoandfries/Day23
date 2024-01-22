@@ -1,0 +1,14 @@
+-- Step 1: Insert an order into the 'orders' table
+INSERT INTO orders (order_date, customer_Id, ship_address)
+VALUES (CURRENT_DATE(), RAND() * 100, 'Bishan');
+
+-- Step 2: Retrieve the auto-generated order ID
+SET @order_id = LAST_INSERT_ID();
+
+-- Step 3: Insert "Pork Chops" into the 'order_details' table for the order
+INSERT INTO order_details (order_id, product_name, quantity, unit_price, standard_cost, discount)
+VALUES (@order_id, 'Pork Chops', ROUND(RAND() * 10), ROUND(RAND() * 10 + 5, 2), ROUND(RAND() * 5, 2), ROUND(RAND() * 0.2, 2));
+
+-- Step 4: Insert "Pork Chops" into the 'products' table for the order
+INSERT INTO products (order_id, quantity, standard_cost)
+VALUES (@order_id, ROUND(RAND() * 10), ROUND(RAND() * 5, 2));
